@@ -4,7 +4,14 @@
   "main": "index.js",
   "repository": "https://github.com/LorinLuo1988/react-redux-antd-webpack-sass.git",
   "author": "lorin",
+  "keywords": ["react", "redux", "antd", "webpack", "sass"],
   "license": "MIT",
+  "scripts": {
+    "build-dev": "",
+    "build-dev-mock": "",
+    "build-test": "",
+    "build-prod": ""
+  },
   "dependencies": {
     "antd": "^3.8.1",
     "axios": "^0.18.0",
