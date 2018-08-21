@@ -5,6 +5,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const happypackFactory = require('./happypack')
+const utils = require('./utils')
 
 const { resolve } = path
 const ROOT_PATH = resolve(__dirname, '../')
@@ -62,17 +63,11 @@ const rules = [
   {
     test: /\.less$/,
     include: resolve(ROOT_PATH, 'node_modules/antd'),
-    use: isDev ? 'happypack/loader?id=lessAntd' : [
-      MiniCssExtractPlugin.loader,
-      'happypack/loader?id=lessAntd'
-    ]
+    use: utils.styleLoaderFactory('lessAntd')
   },
   {
     test: /\.css$/,
-    use: isDev ? 'happypack/loader?id=css' : [
-      MiniCssExtractPlugin.loader,
-      'happypack/loader?id=css'
-    ]
+    use: utils.styleLoaderFactory('css')
   }
 ]
 

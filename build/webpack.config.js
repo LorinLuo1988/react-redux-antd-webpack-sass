@@ -10,19 +10,22 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 const NODE_ENV = process.env.NODE_ENV
 const { resolve } = path
-const { getAntdTheme } = utils
+const { getAntdTheme, fsExistsSync, createDevApiRoot, styleLoaderFactory } = utils
 
 const ROOT_PATH = resolve(__dirname, '..')
 const SRC_PATH = resolve(ROOT_PATH, 'src')
 const STATIC_PATH = resolve(SRC_PATH, 'static')
-const isDev = NODE_ENV === 'development'
 const DEV_API_ROOT_PATH = resolve(ROOT_PATH, './build/config/dev-api-root.js')
 const pkg = require(resolve(ROOT_PATH, 'package.json'))
 const dllBundleConfig = require(resolve(STATIC_PATH, `dll/${NODE_ENV}/bundle-config.json`))
 
 const commonConfig = {
   entry: {
-    index: ['react-hot-loader/patch', 'babel-polyfill', resolve(SRC_PATH, 'entry/index.jsx')]
+    index: [
+      'react-hot-loader/patch',
+      'babel-polyfill',
+      resolve(SRC_PATH, 'entry/index.jsx')
+    ]
   },
   output: {
     path: resolve(ROOT_PATH, 'dist'),
@@ -44,10 +47,49 @@ const commonConfig = {
       },
       {
         test: /\.css$/,
-        use: isDev ? 'happypack/loader?id=css' : [
-          MiniCssExtractPlugin.loader,
-          'happypack/loader?id=css'
-        ]
+        include: [
+          resolve(ROOT_PATH, 'node_modules'),
+          resolve(SRC_PATH, 'styles')
+        ],
+        use: styleLoaderFactory('css')
+      },
+      {
+        test: /\.css$/,
+        // 除去node_modules和src/styles下面的css文件，其他css文件均进行css modules
+        exclude: [
+          resolve(ROOT_PATH, 'node_modules'),
+          resolve(SRC_PATH, 'styles')
+        ],
+        use: styleLoaderFactory('cssModules')
+      },
+      {
+        test: /\.scss$/,
+        // 除去node_modules和src/styles下面的less文件，其他less文件均进行css modules
+        exclude: [
+          path.resolve(ROOT_PATH, 'node_modules'),
+          path.resolve(ROOT_PATH, 'src/styles')
+        ],
+        use: styleLoaderFactory('scssModules')
+      },
+      {
+        test: /.scss$/,
+        include: path.resolve(ROOT_PATH, 'src/styles'),
+        use: styleLoaderFactory('scss')
+      },
+      {
+        test: /\.(png|jpe?g|gif|ico)(\?.*)?$/,
+        loader: 'url-loader',
+        options: {
+          limit: 8192, // 将小于8192byte的图片转换成base64编码
+          name: '[name].[ext]?[hash]'
+        }
+      },
+      {
+        test: /\.(woff|svg|eot|ttf)(\?.*)?$/,
+        loader: 'url-loader',
+        options: {
+          limit: 8192 // 将小于8192byte的字体转换成base64编码
+        }
       }
     ]
   },
@@ -55,6 +97,9 @@ const commonConfig = {
     happypackFactory('eslint'),
     happypackFactory('babel'),
     happypackFactory('css'),
+    happypackFactory('cssModules'),
+    happypackFactory('scss'),
+    happypackFactory('scssModules'),
     new CopyWebpackPlugin([
       {
         from: path.resolve(SRC_PATH, 'static'),
@@ -90,7 +135,7 @@ const commonConfig = {
     })
   ],
   resolve: {
-    extensions: ['.js', '.jsx', '.sass', '.css', '.json'],
+    extensions: ['.js', '.jsx', '.scss', '.css', '.json'],
     alias: {
       '@': SRC_PATH,
       '@root': ROOT_PATH,
@@ -110,8 +155,8 @@ const commonConfig = {
 }
 
 // 如果沒有dev-api-root.js，则新建该文件
-if (!utils.fsExistsSync(DEV_API_ROOT_PATH)) {
-  utils.createDevApiRoot(DEV_API_ROOT_PATH)
+if (!fsExistsSync(DEV_API_ROOT_PATH)) {
+  createDevApiRoot(DEV_API_ROOT_PATH)
 }
 
 // 是否要启动bundle分析
@@ -121,5 +166,5 @@ if (process.env.npm_config_analyzer) {
 
 module.exports = webpackMerge(
   commonConfig,
-  require(`./webpack.${isDev ? 'dev' : 'prod'}.config.js`)
+  require(`./webpack.${NODE_ENV === 'development' ? 'dev' : 'prod'}.config.js`)
 )

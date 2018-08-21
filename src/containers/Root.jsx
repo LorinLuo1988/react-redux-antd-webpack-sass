@@ -1,13 +1,12 @@
 import React, { PureComponent } from 'react'
-import { DatePicker } from 'antd'
+import { MainLayout } from './layout'
 
 class Root extends PureComponent {
   render () {
     return (
-      <div>
-        {this.state.counter}
-        <DatePicker />
-      </div>
+      <MainLayout>
+        ddd
+      </MainLayout>
     )
   }
 }

@@ -1,8 +1,10 @@
 const path = require('path')
 const fs = require('fs')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 const { resolve } = path
 const ROOT_PATH = resolve(__dirname, '..')
+const isDev = process.env.NODE_ENV === 'development'
 
 /**
  * 获取antd的自定义主题less变量
@@ -59,8 +61,21 @@ module.exports = DEV_API_ROOT
   )
 }
 
+/**
+ * 样式（css，less，sass）loader工厂函数
+ * @param  {String}  happypackId happypack的id
+ * @return {String|Array} 样式loader
+ */
+const styleLoaderFactory = (happypackId) => {
+  return isDev ? `happypack/loader?id=${happypackId}` : [
+    MiniCssExtractPlugin.loader,
+    `happypack/loader?id=${happypackId}`
+  ]
+}
+
 module.exports = {
   getAntdTheme,
   fsExistsSync,
-  createDevApiRoot
+  createDevApiRoot,
+  styleLoaderFactory
 }

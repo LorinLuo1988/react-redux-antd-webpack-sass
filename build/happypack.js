@@ -72,6 +72,30 @@ const lessAntdLoader = [
   }
 ]
 
+const scssLoader = [
+  {
+    loader: 'css-loader',
+    options: {
+      minimize: !isDev
+    }
+  },
+  'postcss-loader',
+  'sass-loader'
+]
+
+const scssModulesLoader = [
+  {
+    loader: 'css-loader',
+    options: {
+      modules: true,
+      localIdentName: '[path][name]__[local]--[hash:base64:5]',
+      minimize: !isDev
+    }
+  },
+  'postcss-loader',
+  'sass-loader'
+]
+
 // 开发环境css less sass需要将style-loader放到happypack的第一位
 if (isDev) {
   const styleLoaderContrls = [
@@ -79,7 +103,9 @@ if (isDev) {
     cssModulesLoader,
     lessLoader,
     lessModulesLoader,
-    lessAntdLoader
+    lessAntdLoader,
+    scssLoader,
+    scssModulesLoader
   ]
   
   styleLoaderContrls.forEach(loader => loader.unshift(styleLoader))
@@ -92,7 +118,9 @@ const defaultLoaders = {
   cssModules: cssModulesLoader,
   less: lessLoader,
   lessModules: lessModulesLoader,
-  lessAntd: lessAntdLoader
+  lessAntd: lessAntdLoader,
+  scss: scssLoader,
+  scssModules: scssModulesLoader
 }
 
 /**

@@ -9,6 +9,7 @@ import { LocaleProvider } from 'antd'
 import zh_CN from 'antd/lib/locale-provider/zh_CN'
 import { AppContainer } from 'react-hot-loader'
 import Root from '@/containers/Root'
+import '@styles'
 
 // 异步请求公共配置
 axios.defaults.headers.post['Content-Type'] = 'application/json'
