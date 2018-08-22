@@ -19,6 +19,7 @@ const PageRouterSwitchProgress = (WrappedComponent) => {
     }
     getSnapshotBeforeUpdate () {
       Nprogress.start()
+      return null
     }
     componentDidUpdate () {
       Nprogress.done()
