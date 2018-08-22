@@ -1,21 +1,13 @@
 .ant-layout.#{$layout-prefix}-layout {
   height: 100%;
-  $header-bg: '$layout-prefix-layout-header-bg';
-  $header-color: "${layout-prefix}-layout-header-color";
-  $ant-menu-item-selected-color: "${layout-prefix}-layout-ant-menu-item-selected-color";
-  $ant-menu-item-selected-border-color: "${layout-prefix}-layout-ant-menu-item-selected-border-color";
-  $sider-menu-bg: "${layout-prefix}-layout-sider-menu-bg";
-  $sider-menu-color: "${layout-prefix}-layout-sider-menu-color";
-  $sider-ant-menu-item-selected-bg: "${layout-prefix}-layout-sider-ant-menu-item-selected-bg";
-  $content-color: "${layout-prefix}-layout-content-color";
   $headerHeight: 64px;
 
   .header {
     height: $headerHeight;
     line-height: $headerHeight;
     padding: 0 25px 0 0;
-    background: $header-bg;
-    color: $header-color;
+    background: map-get($layout-header-bg, $layout-prefix);
+    color: map-get($layout-header-color, $layout-prefix);
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
     z-index: 100;
 
@@ -32,8 +24,8 @@
       padding-left: 32px;
       line-height: $headerHeight;
 
-      svg {
-        font-size: 40px;
+      i {
+        font-size: 45px;
       }
     }
 
@@ -45,9 +37,9 @@
 
     .ant-menu-item-selected {
       line-height: 57px;
-      border-bottom: 3px solid $ant-menu-item-selected-border-color;
+      border-bottom: 3px solid map-get($layout-ant-menu-item-selected-border-color, $layout-prefix);
       background: none;
-      color: $ant-menu-item-selected-color;
+      color: map-get($layout-ant-menu-item-selected-color, $layout-prefix);
     }
   }
 
@@ -96,12 +88,12 @@
 
     .ant-menu {
       padding-top: 40px;
-      background: $sider-menu-bg;
-      color: $sider-menu-color;
+      background: map-get($layout-sider-menu-bg, $layout-prefix);
+      color: map-get($layout-sider-menu-color, $layout-prefix);
     }
 
     .ant-menu-item-selected {
-      background: $sider-ant-menu-item-selected-bg;
+      background: map-get($layout-sider-ant-menu-item-selected-bg, $layout-prefix);
     }
 
     .ant-menu-item {
@@ -117,7 +109,7 @@
   }
 
   .content {
-    background: $content-color;
+    background: map-get($layout-content-color, $layout-prefix);
     padding: 24px;
     margin: 0;
   }

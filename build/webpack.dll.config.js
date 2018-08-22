@@ -16,8 +16,13 @@ const isDev = NODE_ENV === 'development'
 const entry = {
   vendor: [
     'axios',
-    'babel-polyfill',
-    'history'
+    'history',
+    'nprogress',
+    'nprogress/nprogress.css',
+    'core-decorators',
+    'react-loadable',
+    'redux',
+    'redux-saga'
   ],
   react: [
     'react',
@@ -26,8 +31,7 @@ const entry = {
     'prop-types',
     'react-router-dom',
     'react-redux',
-    'redux',
-    'redux-saga'
+    'babel-polyfill'
   ],
   antd: [
     'antd',
