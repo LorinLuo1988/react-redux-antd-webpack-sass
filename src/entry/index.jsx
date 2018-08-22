@@ -34,7 +34,15 @@ const renderApp = () => {
   )
 }
 
-renderApp()
+// 按需加载mock
+if (process.env.mock) {
+  require.ensure([], require => {
+    require('@mock')
+    renderApp()
+  })
+} else {
+  renderApp()
+}
 
 if (module.hot) {
   module.hot.accept(() => renderApp())

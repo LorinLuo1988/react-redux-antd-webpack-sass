@@ -34,4 +34,11 @@ module.exports = {
       }
     }
   },
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        mock: process.env.npm_config_mock || false
+      }
+    })
+  ]
 }
