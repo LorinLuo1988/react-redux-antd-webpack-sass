@@ -13,7 +13,7 @@ const Home = wrapperComponent(() => import('@containers/Home'))
 // 设置
 const Setting = wrapperComponent(() => import('@containers/Setting'))
 
-const routerFactory = () => ({
+const routes = {
   path: '/',
   children: [
     {
@@ -29,7 +29,7 @@ const routerFactory = () => ({
       icon: 'setting'
     }    
   ]
-})
+}
 
 const RouteWrapper = ({ routes = [] }) => {
   const routers = routes.map(route => (
@@ -59,6 +59,7 @@ RouteWrapper.propTypes = {
 }
 
 export {
-  routerFactory
+  routes
 }
-export default <RouteWrapper routes={routerFactory().children || []}></RouteWrapper>
+
+export default <RouteWrapper routes={routes.children || []}></RouteWrapper>

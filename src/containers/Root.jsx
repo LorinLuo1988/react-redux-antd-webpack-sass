@@ -6,11 +6,12 @@ import { connect } from 'react-redux'
 import { MainLayout } from './layout'
 import { updateRouterMenuAction } from '@redux/common'
 import { findParentsByKey } from '@utils'
-import { hot } from 'react-hot-loader'
-import routes from '@/router'
+import router from '@/router'
 import { createBrowserHistory } from 'history'
 
+// 将history实例放到window上面，便于在js代码里面进行路由控制
 window.$history = createBrowserHistory({})
+
 const mapStateToProps = state => {
   return {
     selectedKeys: state.commonReducer.selectedKeys,
@@ -22,7 +23,6 @@ const mapActionToProps = dispatch => ({
   updateRouterMenuAction: payload => dispatch(updateRouterMenuAction(payload))
 })
 
-@hot(module)
 @connect(mapStateToProps, mapActionToProps)
 @autobind
 class Root extends Component {
@@ -68,7 +68,7 @@ class Root extends Component {
       <Router history={window.$history}>
         <Route path="/">
           <Layout>
-            { routes }
+            { router }
           </Layout>
         </Route>
       </Router>

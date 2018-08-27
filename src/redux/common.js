@@ -1,5 +1,5 @@
 import { createReducer } from '@/utils/redux'
-import { routerFactory } from '@/router'
+import { routes } from '@/router'
 import {
   UPDATE_LOADING,
   UPDATE_ROUTER_MENU
@@ -10,7 +10,7 @@ function stateFactory () {
     loading: false, // 全局loading图标
     openKeys: [], // 当前展开的 SubMenu 菜单项 key 数组
     selectedKeys: [], // 当前选中的菜单项 key 数组
-    router: routerFactory() || []
+    router: routes || []
   }
 }
 

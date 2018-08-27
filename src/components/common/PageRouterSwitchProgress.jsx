@@ -1,19 +1,12 @@
 import React, { Component } from 'react'
 import 'nprogress/nprogress.css'
 import Nprogress from 'nprogress'
-import * as PropTypes from 'prop-types'
 
 const PageRouterSwitchProgress = WrappedComponent => {
   class PageRouterSwitchProgress extends Component {
-    static propTypes = {
-      history: PropTypes.object.isRequired
-    }
     constructor (props) {
       Nprogress.start()
       super(props)
-      
-      // 将history实例放到window上面，便于在js代码里面进行路由控制
-      // window.$history = props.history
     }
     getSnapshotBeforeUpdate () {
       Nprogress.start()
