@@ -1,5 +1,5 @@
 import { createReducer } from '@/utils/redux'
-import routerFactory from '@/router'
+import { routerFactory } from '@/router'
 import {
   UPDATE_LOADING,
   UPDATE_ROUTER_MENU

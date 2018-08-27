@@ -12,4 +12,10 @@ const store = createStore(
 
 sagaMiddleware.run(rootSaga)
 
+if (module.hot) {
+  module.hot.accept('./redux', () => {
+    store.replaceReducer(combineReducers(reducers))
+  })
+}
+
 export default store

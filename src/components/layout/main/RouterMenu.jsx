@@ -19,17 +19,17 @@ const mapActionToProps = dispatch => ({
 
 @connect(mapStateToProps, mapActionToProps)
 class RouterMenu extends React.PureComponent {
-  constructor (props) {
-    super(props)
-
-    this.routeRecursion = this.routeRecursion.bind(this)
-    this.handleOpenChange = this.handleOpenChange.bind(this)
-  }
   static propTypes = {
     selectedKeys: PropTypes.array.isRequired,
     openKeys: PropTypes.array.isRequired,
     router: PropTypes.object.isRequired,
     updateRouterMenuAction: PropTypes.func.isRequired
+  }
+  constructor (props) {
+    super(props)
+
+    this.routeRecursion = this.routeRecursion.bind(this)
+    this.handleOpenChange = this.handleOpenChange.bind(this)
   }
   handleOpenChange ({ key }) {
     const { openKeys, updateRouterMenuAction } = this.props
@@ -63,7 +63,7 @@ class RouterMenu extends React.PureComponent {
         </SubMenu>
       )
     }
-
+    
     return (
       <MenuItem key={route.path}>
         <Link key={route.path} to={route.path}>

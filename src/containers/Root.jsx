@@ -1,13 +1,16 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { Router, Route } from 'react-router-dom'
 import { autobind } from 'core-decorators'
 import { connect } from 'react-redux'
 import { MainLayout } from './layout'
 import { updateRouterMenuAction } from '@redux/common'
-import { RouteWrapper } from '@/components/common'
 import { findParentsByKey } from '@utils'
+import { hot } from 'react-hot-loader'
+import routes from '@/router'
+import { createBrowserHistory } from 'history'
 
+window.$history = createBrowserHistory({})
 const mapStateToProps = state => {
   return {
     selectedKeys: state.commonReducer.selectedKeys,
@@ -19,9 +22,10 @@ const mapActionToProps = dispatch => ({
   updateRouterMenuAction: payload => dispatch(updateRouterMenuAction(payload))
 })
 
+@hot(module)
 @connect(mapStateToProps, mapActionToProps)
 @autobind
-class Root extends PureComponent {
+class Root extends Component {
   static propTypes = {
     updateRouterMenuAction: PropTypes.func.isRequired,
     selectedKeys: PropTypes.array.isRequired,
@@ -30,19 +34,15 @@ class Root extends PureComponent {
   state = {
     layout: MainLayout
   }
+  constructor (props) {
+    super(props)
+    this.listenerRouterChange()
+  }
   switchLayout (layout = MainLayout) {
     this.setState({layout})
   }
   listenerRouterChange () {
-    if (this.isListenerRouterChange) {
-      return false
-    }
-
-    if (window.$history) {
-      this.updateRouterMenu()
-      window.$history.listen(this.handleRouterChange)
-      this.isListenerRouterChange = true
-    }
+    window.$history.listen(this.handleRouterChange)
   }
   updateRouterMenu () {
     const router = this.props.router
@@ -63,23 +63,19 @@ class Root extends PureComponent {
   }
   render () {
     const Layout = this.state.layout
-    const router = this.props.router
     
     return (
-      <Router>
+      <Router history={window.$history}>
         <Route path="/">
           <Layout>
-            <RouteWrapper routes={router.children || []} />
+            { routes }
           </Layout>
         </Route>
       </Router>
     )
   }
-  componentDidUpdate () {
-    this.listenerRouterChange()
-  }
   componentDidMount () {
-    this.listenerRouterChange()
+    this.updateRouterMenu()
   }
 }
 

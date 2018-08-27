@@ -13,10 +13,8 @@ module.exports = {
     filename: '[name].bundle.js'
   },
   devServer: {
-    hot: true,
-    inline: true,
     progress: true,
-    publicPath: '/',
+    hot: true,
     contentBase: resolve(ROOT_PATH, 'dist'),
     historyApiFallback: true,
     disableHostCheck: true,

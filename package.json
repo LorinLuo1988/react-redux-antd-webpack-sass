@@ -14,7 +14,7 @@
   ],
   "license": "MIT",
   "scripts": {
-    "build-dev": "cross-env NODE_ENV=development webpack-dev-server --mode development --config build/webpack.config.js --inline --hot",
+    "build-dev": "cross-env NODE_ENV=development webpack-dev-server --mode development --config build/webpack.config.js --hot",
     "build-dll-dev": "cross-env NODE_ENV=development webpack --mode development --progress --config build/webpack.dll.config.js",
     "build-dll-prod": "cross-env NODE_ENV=production webpack --mode production --progress --config build/webpack.dll.config.js",
     "build-test": "",
@@ -42,6 +42,7 @@
     "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.6",
     "babel-loader": "^7.1.5",
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "babel-plugin-transform-decorators-legacy": "^1.3.5",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
@@ -71,6 +72,7 @@
     "webpack-bundle-analyzer": "^2.13.1",
     "webpack-cli": "^3.1.0",
     "webpack-dev-server": "^3.1.5",
+    "webpack-hot-middleware": "^2.22.3",
     "webpack-merge": "^4.1.4"
   }
 }
