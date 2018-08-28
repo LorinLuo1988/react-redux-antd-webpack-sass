@@ -61,7 +61,7 @@
     .action {
       display: flex;
       align-items: center;
-      margin-left: 64px;
+      margin-left: 14px;
       @include cursor(blue);
     }
 
@@ -101,6 +101,13 @@
       line-height: 48px;
       padding: 0 32px!important;
       margin: 0;
+    }
+
+    .ant-menu-submenu {
+      padding-left: 8px;
+      .ant-menu {
+        padding-top: 0;
+      }
     }
   }
 

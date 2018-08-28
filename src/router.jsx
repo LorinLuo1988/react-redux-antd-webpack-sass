@@ -13,24 +13,6 @@ const Home = wrapperComponent(() => import('@containers/Home'))
 // 设置
 const Setting = wrapperComponent(() => import('@containers/Setting'))
 
-const routes = {
-  path: '/',
-  children: [
-    {
-      path: '/home',
-      title: '主页',
-      component: Home,
-      icon: 'home'
-    },
-    {
-      path: '/setting',
-      title: '设置',
-      component: Setting,
-      icon: 'setting'
-    }    
-  ]
-}
-
 const RouteWrapper = ({ routes = [] }) => {
   const routers = routes.map(route => (
     <Route
@@ -56,6 +38,24 @@ const RouteWrapper = ({ routes = [] }) => {
 
 RouteWrapper.propTypes = {
   routes: PropTypes.array.isRequired
+}
+
+const routes = {
+  path: '/',
+  children: [
+    {
+      path: '/home',
+      title: '主页',
+      component: Home,
+      icon: 'home'
+    },
+    {
+      path: '/setting',
+      title: '设置',
+      component: Setting,
+      icon: 'setting'
+    }
+  ]
 }
 
 export {

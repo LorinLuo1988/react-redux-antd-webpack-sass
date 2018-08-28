@@ -19,6 +19,7 @@ import '@/utils/interceptor'
 // 异步请求公共配置
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 axios.defaults.timeout = 50000
+// 表示跨域请求时是携带cookie信息
 axios.defaults.withCredentials = true
 
 const renderApp = () => {
