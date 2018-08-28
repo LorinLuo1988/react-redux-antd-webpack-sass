@@ -14,10 +14,11 @@
   ],
   "license": "MIT",
   "scripts": {
-    "build-dev": "cross-env NODE_ENV=development webpack-dev-server --mode development --config build/webpack.config.js --hot",
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --mode development --config build/webpack.config.js --hot",
+    "dev-mock": "cross-env NODE_ENV=development webpack-dev-server --mode development --config build/webpack.config.js --hot",
     "build-dll-dev": "cross-env NODE_ENV=development webpack --mode development --progress --config build/webpack.dll.config.js",
     "build-dll-prod": "cross-env NODE_ENV=production webpack --mode production --progress --config build/webpack.dll.config.js",
-    "build-test": "",
+    "test": "",
     "build-prod": "cross-env NODE_ENV=production webpack --progress --mode production --config build/webpack.config.js",
     "server": "node server.js"
   },

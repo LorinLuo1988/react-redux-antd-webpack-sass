@@ -12,22 +12,18 @@ react+redux+axios+antd+webpack
 ## Run
 ### 参数
 1. --analyzer: 启动bundle分析
+2. --mock: 启动mock数据模式（只在开发环境有效）
 
 ### Development
 1. npm run build-dll-dev(只在第一次或者第三方包有更新时才用运行，第三方包参考/build/webpack.dll.config.js)
-2. npm run build-dev
+2. npm run dev
 
 ### Mock Development
 1. npm run build-dll-dev(只在第一次或者第三方包有更新时才用运行，第三方包参考/build/webpack.dll.config.js)
 
-2. npm run build-dev-mock
+2. npm run dev-mock
 
 4. 添加mock数据，请在src/mock文件夹下，按照路由层级添加mock文件
-
-### Test(Build)
-1. npm run build-dll-prod(只在第一次或者第三方包有更新时才用运行，第三方包参考/build/webpack.dll.config.js)
-
-2. npm run build-test
 
 ### Production(Build)
 1. npm run build-dll-prod(只在第一次或者第三方包有更新时才用运行，第三方包参考/build/webpack.dll.config.js)
